@@ -1,0 +1,75 @@
+#### general settings
+name: latent_low
+use_tb_logger: true
+model: latent
+distortion: low
+gpu_ids: [0]
+  
+#### datasets
+datasets:
+  train:
+    name: Train_Dataset
+    mode: LQGTR
+    dataroot_GT: ./codes/config/unet-latent/dataset/train/gt
+    dataroot_LQ: ./codes/config/unet-latent/dataset/train/input
+    dataroot_R: ./codes/config/unet-latent/dataset/train/reflectance
+
+    use_shuffle: true
+    n_workers: 2  # per GPU
+    batch_size: 8
+    GT_size: 400
+    LR_size: 400
+    R_size: 400
+    use_flip: true
+    use_rot: true
+    use_swap: true
+    color: RGB
+  val:
+    name: Val_Dataset
+    mode: LQGTR
+    dataroot_GT: ./codes/config/unet-latent/dataset/val/gt
+    dataroot_LQ: ./codes/config/unet-latent/dataset/val/input
+    dataroot_R: ./codes/config/unet-latent/dataset/val/reflectance
+
+#### network structures
+network_G:
+  which_model_G: UNet
+  setting:
+    in_ch: 3
+    out_ch: 3
+    ch: 8
+    ch_mult: [4, 8, 16]
+    embed_dim: 8
+
+#### path
+path:
+  pretrain_model_G: ~
+  strict_load: true
+  resume_state: ~
+
+#### training settings: learning rate scheme, loss
+train:
+  optimizer: Lion # Adam, AdamW, Lion
+  lr_G: !!float 3e-5
+  lr_scheme: TrueCosineAnnealingLR
+  beta1: 0.9
+  beta2: 0.99
+  niter: 300000
+  warmup_iter: -1  # no warm up
+  lr_steps: [200000, 400000]
+  lr_gamma: 0.5
+  eta_min: !!float 1e-7
+
+  # criterion
+  is_weighted: False
+  loss_type: l1
+  weight: 1.0
+
+  manual_seed: 0
+  val_freq: !!float 2.5e3
+#  val_freq: 10
+
+#### logger
+logger:
+  print_freq: 200
+  save_checkpoint_freq: !!float 1e4
