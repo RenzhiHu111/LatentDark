@@ -96,6 +96,9 @@ We also provide the results and pre-trained model.
 ## Acknowledgement
 Our code is adapted from the original [IR-SDE and Refusion](https://github.com/Algolzw/image-restoration-sde) repository. We thank the authors for sharing their code.
 
+## Citation
+
+If our work is useful for your research, please consider citing:
 ```
 @article{hu2025latentdark,
   title={LatentDark: Reflectance guided latent diffusion model for low-light image enhancement},
