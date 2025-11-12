@@ -23,8 +23,6 @@ Here we provide an example for the **Low-light Image Enhancement (LIE)**, but it
 
 We retrained the model from scratch using a single Nvidia 3090 GPU.
 
-Note that **we didn't tune any parameter**, the last saved checkpoint was used to evaluation.
-
 ## Dataset
 ### Dataset Preparation
 We utilize the LOL-v1 dataset, with 485 images for training and 15 images for testing. Similarly, the LOL-v2-real dataset is used, consisting of 689 images for training and 100 images for testing.
