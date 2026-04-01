@@ -1,6 +1,6 @@
 name: latent-low
 suffix: ~  # add suffix to saved images
-model: latent_low
+model: latent_denoising
 distortion: low
 gpu_ids: [0]
 
