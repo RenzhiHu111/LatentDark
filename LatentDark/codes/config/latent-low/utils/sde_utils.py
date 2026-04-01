@@ -157,6 +157,9 @@ class IRSDE(SDE):
     def set_mu(self, mu):
         self.mu = mu
 
+    def set_cond1(self, cond1):
+        self.cond1 = cond1
+
     # set score model for reverse process
     def set_model(self, model):
         self.model = model
@@ -186,12 +189,12 @@ class IRSDE(SDE):
 
     def score_fn(self, x, t, **kwargs):
         # need to pre-set mu and score_model
-        noise = self.model(x, self.mu, t, **kwargs)
+        noise = self.model(x, self.mu, self.cond1, t, **kwargs)
         return self.get_score_from_noise(noise, t)
 
     def noise_fn(self, x, t, **kwargs):
         # need to pre-set mu and score_model
-        return self.model(x, self.mu, t, **kwargs)
+        return self.model(x, self.mu, self.cond1, t, **kwargs)
 
     # optimum x_{t-1}
     def reverse_optimum_step(self, xt, x0, t):
