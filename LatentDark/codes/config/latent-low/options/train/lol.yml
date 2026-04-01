@@ -1,7 +1,7 @@
 #### general settings
 name: latent-low
 use_tb_logger: true
-model: latent_low
+model: latent_denoising
 distortion: low
 gpu_ids: [0]
 
